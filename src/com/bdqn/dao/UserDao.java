@@ -1,9 +1,11 @@
 package com.bdqn.dao;
 
+import java.sql.Connection;
+
 import com.bdqn.model.User;
 
 public interface UserDao {
 	
-	public boolean login(User user);
+	User selectUserByUnUp(User user, Connection conn);
 
 }

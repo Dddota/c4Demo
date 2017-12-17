@@ -1,14 +1,17 @@
 <component name="ArtifactManager">
-  <artifact type="exploded-war" name="c3Demo:war exploded">
-    <output-path>$PROJECT_DIR$/out/artifacts/c3Demo_war_exploded</output-path>
+  <artifact type="exploded-war" name="c4Demo">
+    <output-path>$PROJECT_DIR$/out/artifacts/c4Demo</output-path>
     <root id="root">
       <element id="javaee-facet-resources" facet="c4Demo/web/Web" />
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
           <element id="module-output" name="c4Demo" />
+          <element id="library" level="application_server_libraries" name="Tomcat 7.0.47" />
+          <element id="dir-copy" path="E:/JAVA/apache-tomcat-7.0.47-windows-x64/apache-tomcat-7.0.47" />
         </element>
         <element id="directory" name="lib">
           <element id="file-copy" path="$PROJECT_DIR$/web/WEB-INF/lib/mysql-connector-java-5.1.26-bin.jar" />
+          <element id="library" level="application" name="mysql-connector-java-5.1.26-bin" />
         </element>
       </element>
     </root>

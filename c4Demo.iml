@@ -23,17 +23,10 @@
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/resources" type="java-resource" />
     </content>
+    <orderEntry type="library" exported="" name="mysql-connector-java-5.1.26-bin" level="application" />
+    <orderEntry type="library" exported="" scope="TEST" name="junit-4.10" level="application" />
+    <orderEntry type="library" exported="" scope="PROVIDED" name="Tomcat 7.0.47" level="application_server_libraries" />
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" exported="" scope="PROVIDED" name="Tomcat 7.0.47" level="application_server_libraries" />
-    <orderEntry type="module-library" exported="">
-      <library>
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/web/WEB-INF/lib/mysql-connector-java-5.1.26-bin.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
   </component>
 </module>

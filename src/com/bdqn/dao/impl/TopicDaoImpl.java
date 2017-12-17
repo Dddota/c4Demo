@@ -1,73 +1,215 @@
 package com.bdqn.dao.impl;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import com.bdqn.model.Topic;
-import com.bdqn.dao.BaseDao;
 import com.bdqn.dao.TopicDao;
-public class TopicDaoImpl extends BaseDao implements TopicDao {
+import com.bdqn.model.Topic;
+import com.bdqn.model.User;
+import com.bdqn.utils.DataSourceUtil;
+import com.bdqn.utils.Page;
 
+public class TopicDaoImpl implements TopicDao {
+	
 
-	public List<Topic> listAllTopic() {
-		String sql="select * from topic";
-		ResultSet rs=excuteQuery(sql, null);
+	
+	public List<Topic> getAllTopic(Connection conn) {
+			
+		int row =0;
+		PreparedStatement ps=null;
+		ResultSet rs=null;
+	
 		List<Topic> topicList=new ArrayList<Topic>();
+		Topic t=null;
+
+		String sql="select * from topic";	
 		try {
+			Object[] oo=null;
+			rs=DataSourceUtil.executeQuery(conn, ps, sql, oo);
+			
 			while (rs.next()) {
-				Topic topic=new Topic();
-				topic.setTid(rs.getInt(1));
-				topic.setTname(rs.getString(2));
-				topicList.add(topic);	
+				t=new Topic();
+				
+				t.settId(rs.getInt(1));
+				t.settName(rs.getString(2));
+				
+				topicList.add(t);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally{
+			DataSourceUtil.closeAll(ps, null,rs);
 		}
 		return topicList;
 	}
 
-	public int addTopic(Topic topic) {
-		String sql="insert into topic (tname) values (?)";
-		Object[] oo={topic.getTname()};
-		
-		int num=excuteUpdate(sql, oo);
-		
-		
-		
-		return num;
-	}
-
-	public int delTopicByTid(int tid) {
-		String sql="delete from topic where tid =?";
+	public int delTopicByTid(Connection conn, int tid) {
+		int row =0;
+		PreparedStatement ps=null;
+		String sql = "delete from  topic where tid=?";
 		Object[] oo={tid};
-		int num=excuteUpdate(sql, oo);
-		return num;
+		try {	
+		 row=DataSourceUtil.executeUpdate(conn, ps, sql, oo);
+		}finally{
+			DataSourceUtil.closeAll(ps, null,null);
+		}
+		return row;
+
 	}
 
-	public int updateTopicByTid(Topic topic) {
-		String sql="update topic set  tname=? where tid=?";
-		Object[] oo={topic.getTname(),topic.getTid()};
-		int num=excuteUpdate(sql, oo);
-		return num;
-	}
+	public Topic selectTopicByTname(Connection conn, String tname) {
+		int row =0;
+		PreparedStatement ps=null;
+		ResultSet rs=null;
+	
+		
+		Topic t=null;
 
-	public Topic findTopicByTid(int tid){//查找topic根据tid
-		String sql="select * from topic where tid =?";
-		Object[] oo={tid};
-		ResultSet rs=excuteQuery(sql, oo);
-		Topic topic=new Topic();
+		String sql="select * from topic where tname=?";	
 		try {
-			while (rs.next()){
-				topic.setTid(rs.getInt(1));
-				topic.setTname(rs.getString(2));
-            }
+			Object[] oo={tname};
+			rs=DataSourceUtil.executeQuery(conn, ps, sql, oo);
+			
+			while (rs.next()) {
+				t=new Topic();
+				
+				t.settId(rs.getInt(1));
+				t.settName(rs.getString(2));
+			
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally{
+			DataSourceUtil.closeAll(ps, null,rs);
 		}
-		return topic;
+		return t;
 	}
 
+	public int addTopic(Connection conn, Topic topic) {
+		int row =0;
+		PreparedStatement ps=null;
+		String sql = "insert into topic (tname) values (?)";
+		Object[] oo={topic.gettName()};
+		try {	
+		 row=DataSourceUtil.executeUpdate(conn, ps, sql, oo);
+		}finally{
+			DataSourceUtil.closeAll(ps, null,null);
+		}
+		return row;
+	}
 
+	public int updateTopic(Connection conn, Topic topic) {
+		int row =0;
+		PreparedStatement ps=null;
+		String sql = "update  topic set tname=? where tid=?";
+		Object[] oo={topic.gettName(),topic.gettId()};
+		try {	
+		 row=DataSourceUtil.executeUpdate(conn, ps, sql, oo);
+		}finally{
+			DataSourceUtil.closeAll(ps, null,null);
+		}
+		return row;
+	}
+
+	public Topic selectTopicByTid(Connection conn, int tid) {
+		int row =0;
+		PreparedStatement ps=null;
+		ResultSet rs=null;
+	
+		
+		Topic t=null;
+
+		String sql="select * from topic where tid=?";	
+		try {
+			Object[] oo={tid};
+			rs=DataSourceUtil.executeQuery(conn, ps, sql, oo);
+			
+			while (rs.next()) {
+				t=new Topic();
+				t.settId(rs.getInt(1));
+				t.settName(rs.getString(2));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			DataSourceUtil.closeAll(ps, null,rs);
+		}
+		return t;
+	}
+
+	public List<Topic> getTopicLikeName(String info, Connection conn) {
+
+		PreparedStatement ps=null;
+		ResultSet rs=null;
+	
+		List<Topic> topicList=new ArrayList<Topic>();
+		Topic t=null;
+
+		String sql="select * from topic where tname like concat('%',?,'%')";	
+		try {
+			Object[] oo={info};
+			rs=DataSourceUtil.executeQuery(conn, ps, sql, oo);
+			
+			while (rs.next()) {
+				t=new Topic();
+				
+				t.settId(rs.getInt(1));
+				t.settName(rs.getString(2));
+				
+				topicList.add(t);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			DataSourceUtil.closeAll(ps, null,rs);
+		}
+		return topicList;
+	}
+
+	public List<Topic> getTopicLikeNamePage(String info, Connection conn,
+			Page page) {
+		PreparedStatement ps=null;
+		ResultSet rs=null;
+		List<Topic> topicList=new ArrayList<Topic>();
+		Topic t=null;
+		String sql="select * from topic where tname like concat('%',?,'%') limit ?,?";	
+		try {
+			Object[] oo={info,page.getStartIndex(),page.getPageSize()};
+			rs=DataSourceUtil.executeQuery(conn, ps, sql, oo);
+			while (rs.next()) {
+				t=new Topic();
+				t.settId(rs.getInt(1));
+				t.settName(rs.getString(2));
+				topicList.add(t);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			DataSourceUtil.closeAll(ps, null,rs);
+		}
+		return topicList;
+	}
+
+	public int getTopicLikeNameCount(String info, Connection conn) {
+		PreparedStatement ps=null;
+		ResultSet rs=null;
+		int count=0;
+		String sql="select count(1) from topic where tname like concat('%',?,'%')";	
+		try {
+			Object[] oo={info};
+			rs=DataSourceUtil.executeQuery(conn, ps, sql, oo);
+			while (rs.next()) {	
+				count=rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			DataSourceUtil.closeAll(ps, null,rs);
+		}
+		return count;
+	}
 
 }

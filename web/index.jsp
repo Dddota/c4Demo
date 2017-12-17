@@ -14,6 +14,9 @@
             <label>密&#160;&#160;码</label><input type="password" name="upwd" value="" class="login_input" />
             <input type="submit" class="login_sub" value="登录" />
         </form>
+      <form id="register" method="post" action="do/register.jsp">
+        <input type="submit" value="注册">
+      </form>
     <img src="images/friend_logo.gif" alt="Google" id="friend_logo" /> 
   </div>
   <div id="nav">

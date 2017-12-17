@@ -13,16 +13,15 @@
 </head>
 <body>
 <div id="header">
-添加主题
 </div>
 <div id="container">
     <div class="sidebar ">
         <%@ include file="../jsp/topic/left.jsp"%>
     </div>
     <div class="main">
+        添加主题
         <form action="control.jsp?opr=addtopic" method="post">
-            主题：<input type="text" name="tname"><br/>
-            <input type="submit" value="提交">
+            主题：<input type="text" name="tname"><input type="submit" value="添加">
         </form>
     </div>
 </div>

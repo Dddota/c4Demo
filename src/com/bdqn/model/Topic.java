@@ -1,29 +1,41 @@
 package com.bdqn.model;
 
-/**
- * 涓婚
- * @author Administrator
- *
- */
-
 public class Topic {
-	private Integer tid;
-	private String tname;
+	private int tId;//主题编号
+	private String tName;//主题名称
+	
+	
+	
+	public Topic() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	
+	public Topic(String tName) {
+		super();
+		this.tName = tName;
+	}
+	
+	
 
-	public Integer getTid() {
-		return tid;
+	@Override
+	public String toString() {
+		return "Topic [tId=" + tId + ", tName=" + tName + "]";
 	}
 
-	public void setTid(Integer tid) {
-		this.tid = tid;
+	public int gettId() {
+		return tId;
 	}
-
-	public String getTname() {
-		return tname;
+	public void settId(int tId) {
+		this.tId = tId;
 	}
-
-	public void setTname(String tname) {
-		this.tname = tname;
+	public String gettName() {
+		return tName;
 	}
-
+	public void settName(String tName) {
+		this.tName = tName;
+	}
+	
+	
+	
 }

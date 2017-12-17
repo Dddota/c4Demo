@@ -11,7 +11,7 @@ public class BaseDao {
 	private static String user;
 	private static String password;
 	private static String driver;
-	Connection conn=null;
+	static Connection conn=null;
 
 	static{
 		init();
@@ -41,7 +41,7 @@ public class BaseDao {
 	 * 获得连接的方法
 	 * @return
 	 */
-	public Connection getConnection(){
+	public static Connection getConnection(){
 		try {
 			Class.forName(driver);
 			conn=DriverManager.getConnection(url, user, password);
@@ -59,7 +59,7 @@ public class BaseDao {
 	 * @param oo
 	 * @return
 	 */
-	public int excuteUpdate(String sql,Object[] oo) {
+	public static int excuteUpdate(String sql,Object[] oo) {
 		//获得连接
 		conn=getConnection();
 		//获得执行sql的对象
@@ -77,7 +77,7 @@ public class BaseDao {
 			e.printStackTrace();
 		}finally{
 			//关闭连接
-			colseAll(conn, ps, null);
+			closeAll(conn, ps, null);
 		}
 		return num;
 	}
@@ -88,7 +88,7 @@ public class BaseDao {
 	 * @param oo
 	 * @return  select * from pet
 	 */
-	public ResultSet excuteQuery(String sql,Object[] oo) {
+	public static ResultSet excuteQuery(String sql,Object[] oo) {
 		//获得连接
 		conn=getConnection();
 		//获得执行sql的对象
@@ -114,7 +114,7 @@ public class BaseDao {
 	/*
 	 * 关闭连接的方法
 	 */
-	public void colseAll(Connection conn,PreparedStatement ps,ResultSet rs){
+	public static void closeAll(Connection conn,PreparedStatement ps,ResultSet rs){
 		if (rs!=null) {
 			try {
 				rs.close();

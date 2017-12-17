@@ -1,7 +1,10 @@
 <%@ page import="com.bdqn.dao.TopicDao" %>
 <%@ page import="com.bdqn.dao.impl.TopicDaoImpl" %>
 <%@ page import="com.bdqn.model.Topic" %>
-<%@ page import="java.util.List" %><%--
+<%@ page import="java.util.List" %>
+<%@ page import="com.bdqn.service.TopicService" %>
+<%@ page import="com.bdqn.service.impl.TopicServiceImpl" %>
+<%--
   Created by IntelliJ IDEA.
   User: Administrator
   Date: 2017/12/13
@@ -17,44 +20,61 @@
 <%
     request.setCharacterEncoding("utf-8");
     String opr=request.getParameter("opr");//opr即为操作类型
-    TopicDao topicdao=new TopicDaoImpl();
+    TopicService topicdao=new TopicServiceImpl();
     int num=0;
-    if (opr.equals("edittopiclist")){//编辑主题
-        List<Topic> topiclist=topicdao.listAllTopic();
+/*    if (opr.equals("edittopiclist")){//编辑主题
+        List<Topic> topiclist=topicdao.getAllTopic();
         request.setAttribute("topiclist",topiclist);
         request.getRequestDispatcher("toplist.jsp").forward(request,response);
     }
-    else if (opr.equals("addtopic")){//添加主题
+    else*/
+        if (opr.equals("addtopic")){//添加主题
         String tname=request.getParameter("tname");
         Topic topic=new Topic();
-        topic.setTname(tname);
+        topic.settName(tname);
         topicdao.addTopic(topic);
-        request.getRequestDispatcher("control.jsp?opr=edittopiclist").forward(request,response);
+        request.getRequestDispatcher("control.jsp?opr=searchtopic").forward(request,response);
     }
     else if(opr.equals("deltopic")){//删除主题
         int tid=Integer.parseInt(request.getParameter("tid"));
         num=topicdao.delTopicByTid(tid);
         if (num>0){
-            out.print("<script>alert('删除成功');location.href='control.jsp?opr=edittopiclist'</script>");
+            out.print("<script>alert('删除成功');location.href='control.jsp?opr=searchtopic'</script>");
         }
         else {
-            out.print("<script>alert('删除失败');location.href='control.jsp?opr=edittopiclist'</script>");}
+            out.print("<script>alert('删除失败');location.href='control.jsp?opr=searchtopic'</script>");}
     }
     else if(opr.equals("fixtopic")){//修改主题
         String tname=request.getParameter("tname");
         Topic topic=(Topic)session.getAttribute("topic");
-        topic.setTname(tname);
-        num=topicdao.updateTopicByTid(topic);
+        topic.settName(tname);
+        num=topicdao.updateTopic(topic);
         if (num>0){
-            out.print("<script>alert('修改成功');location.href='control.jsp?opr=edittopiclist'</script>");
+            out.print("<script>alert('修改成功');location.href='control.jsp?opr=searchtopic'</script>");
         }
-        else out.print("<script>alert('修改失败');location.href='control.jsp?opr=edittopiclist'</script>");
+        else out.print("<script>alert('修改失败');location.href='control.jsp?opr=searchtopic'</script>");
         /*request.getRequestDispatcher("control.jsp?opr=edittopiclist").forward(request,response);*/
     }
-    else if(opr.equals("addtopic")){
-
+    else if(opr.equals("searchtopic")){
+        String str=request.getParameter("tsearch");
+        List<Topic> topicList= null;
+        if (str!=null){
+            topicList =topicdao.getTopicLikeName(str);
+        }
+        else {
+            topicList =topicdao.getAllTopic();
+        };
+        request.setAttribute("topiclist",topicList);
+        request.getRequestDispatcher("toplist.jsp").forward(request,response);
     }
-    else if(opr.equals("addtopic")){
+    else if(opr.equals("pagejump")){
+        int pagenum= Integer.parseInt(request.getParameter("pagenum"));
+
+
+
+
+
+
 
     }
     else if(opr.equals("addtopic")){

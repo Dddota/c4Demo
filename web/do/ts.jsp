@@ -1,6 +1,8 @@
 <%@ page import="com.bdqn.dao.impl.TopicDaoImpl" %>
 <%@ page import="com.bdqn.model.Topic" %>
-<%@ page import="com.bdqn.dao.TopicDao" %><%--
+<%@ page import="com.bdqn.dao.TopicDao" %>
+<%@ page import="com.bdqn.service.TopicService" %>
+<%@ page import="com.bdqn.service.impl.TopicServiceImpl" %><%--
   Created by IntelliJ IDEA.
   User: Administrator
   Date: 2017/12/13
@@ -15,8 +17,8 @@
 <body>
 <%
     int tid=new Integer(request.getParameter("tid"));
-    TopicDao topicDao=new TopicDaoImpl();
-    Topic topic=topicDao.findTopicByTid(tid);
+    TopicService topicDao=new TopicServiceImpl();
+    Topic topic=topicDao.selectTopicByTid(tid);
     session.setAttribute("topic",topic);
     response.sendRedirect("fixtopic.jsp");
 %>

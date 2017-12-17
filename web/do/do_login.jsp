@@ -1,6 +1,8 @@
 <%@ page import="com.bdqn.model.User" %>
 <%@ page import="com.bdqn.dao.UserDao" %>
-<%@ page import="com.bdqn.dao.impl.UserDaoImpl" %><%--
+<%@ page import="com.bdqn.dao.impl.UserDaoImpl" %>
+<%@ page import="com.bdqn.service.UserService" %>
+<%@ page import="com.bdqn.service.impl.UserServiceImpl" %><%--
   Created by IntelliJ IDEA.
   User: Administrator
   Date: 2017/12/13
@@ -18,16 +20,16 @@
     String username = request.getParameter("username");
     String pwd = request.getParameter("upwd");
     User user = new User();
-    user.setUname(username);
-    user.setUpwd(pwd);
-    UserDao userdao = new UserDaoImpl();
-    if (userdao.login(user)) {//登陆验证
+    user.setuName(username);
+    user.setuPwd(pwd);
+    UserService userdao = new UserServiceImpl();
+    if (userdao.login(user)!=null) {//登陆验证
         session.setAttribute("isLogin",user);
         response.sendRedirect("../jsp/topic/manager.jsp");
     } else{
         out.print("<script>alert('登陆失败');location.href='../index.jsp'</script>");
     }
+
 %>
 </body>
-
 </html>
