@@ -17,6 +17,7 @@
       <form id="register" method="post" action="do/register.jsp">
         <input type="submit" value="注册">
       </form>
+
     <img src="images/friend_logo.gif" alt="Google" id="friend_logo" /> 
   </div>
   <div id="nav">

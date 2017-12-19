@@ -4,6 +4,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="com.bdqn.service.TopicService" %>
 <%@ page import="com.bdqn.service.impl.TopicServiceImpl" %>
+<%@ page import="com.bdqn.utils.Page" %>
 <%--
   Created by IntelliJ IDEA.
   User: Administrator
@@ -28,7 +29,7 @@
         request.getRequestDispatcher("toplist.jsp").forward(request,response);
     }
     else*/
-        if (opr.equals("addtopic")){//添加主题
+    if (opr.equals("addtopic")){//添加主题
         String tname=request.getParameter("tname");
         Topic topic=new Topic();
         topic.settName(tname);
@@ -58,12 +59,17 @@
     else if(opr.equals("searchtopic")){
         String str=request.getParameter("tsearch");
         List<Topic> topicList= null;
-        if (str!=null){
-            topicList =topicdao.getTopicLikeName(str);
+        if (str==null){
+            str="";
         }
-        else {
-            topicList =topicdao.getAllTopic();
-        };
+        String currentPageNumstr=request.getParameter("currentPageNum");
+        int currentPageNum=1;
+        if (currentPageNumstr!=null){
+            currentPageNum=Integer.parseInt(currentPageNumstr);//有可能会报错，需增加try/catch,判断数字
+        }
+
+        Page p = new Page();
+        topicList =topicdao.getTopicLikeName(str);
         request.setAttribute("topiclist",topicList);
         request.getRequestDispatcher("toplist.jsp").forward(request,response);
     }
