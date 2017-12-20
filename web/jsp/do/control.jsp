@@ -1,10 +1,10 @@
-<%@ page import="com.bdqn.dao.TopicDao" %>
-<%@ page import="com.bdqn.dao.impl.TopicDaoImpl" %>
 <%@ page import="com.bdqn.model.Topic" %>
-<%@ page import="java.util.List" %>
 <%@ page import="com.bdqn.service.TopicService" %>
 <%@ page import="com.bdqn.service.impl.TopicServiceImpl" %>
 <%@ page import="com.bdqn.utils.Page" %>
+<%@ page import="java.util.List" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%--
   Created by IntelliJ IDEA.
   User: Administrator
@@ -62,19 +62,47 @@
         if (str==null){
             str="";
         }
+        //获取当前页
         String currentPageNumstr=request.getParameter("currentPageNum");
         int currentPageNum=1;
         if (currentPageNumstr!=null){
-            currentPageNum=Integer.parseInt(currentPageNumstr);//有可能会报错，需增加try/catch,判断数字
+            try {
+                currentPageNum = Integer.parseInt(currentPageNumstr);//有可能会报错，需增加try/catch,判断数字
+            }
+            catch (Exception e){//当出现异常时
+                currentPageNum=1;
+            }
+            }
+            //设置页大小
+        String currentPageSize=request.getParameter("pageSize");//获取当前页
+        int pageSize=5;
+        if (currentPageSize!=null){
+            try {
+                pageSize = Integer.parseInt(currentPageSize);//有可能会报错，需增加try/catch,判断数字
+            }
+            catch (Exception e){//当出现异常时
+                pageSize=5;
+            }
         }
-
+        //设置总记录数
+        int count=topicdao.getTopicLikeNameCount(str);
         Page p = new Page();
-        topicList =topicdao.getTopicLikeName(str);
+        p.setCurrentPageNum(currentPageNum);
+        p.setPageSize(pageSize);
+        p.setTotalCount(count);
+        String pagenumstr= request.getParameter("pagenum");
+        if (pagenumstr !=null){
+            p.setCurrentPageNum(Integer.parseInt(pagenumstr));
+        }
+        topicList =topicdao.getTopicLikeNamePage(str,p);
         request.setAttribute("topiclist",topicList);
+        request.setAttribute("str",str);
+        request.setAttribute("p",p);
         request.getRequestDispatcher("toplist.jsp").forward(request,response);
     }
     else if(opr.equals("pagejump")){
-        int pagenum= Integer.parseInt(request.getParameter("pagenum"));
+
+
 
 
 

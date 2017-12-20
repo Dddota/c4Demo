@@ -16,7 +16,7 @@
 </div>
 <div id="container">
     <div class="sidebar ">
-        <%@ include file="../jsp/topic/left.jsp"%>
+        <%@ include file="../topic/left.jsp"%>
     </div>
     <div class="main">
         添加主题

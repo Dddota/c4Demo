@@ -3,7 +3,7 @@
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/src/com/bdqn/dao/BaseDao.java" charset="GBK" />
     <file url="file://$PROJECT_DIR$/src/com/bdqn/dao/NewsDao.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/com/bdqn/dao/NewsDao.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/bdqn/model/Topic.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/bdqn/model/User.java" charset="GBK" />
     <file url="file://$PROJECT_DIR$/src/com/bdqn/service/impl/TopicServiceImpl.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/com/bdqn/utils/Page.java" charset="UTF-8" />

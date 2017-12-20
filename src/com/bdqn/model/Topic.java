@@ -1,14 +1,13 @@
 package com.bdqn.model;
 
 public class Topic {
-	private int tId;//主题编号
-	private String tName;//主题名称
+	private int tId;//涓婚缂栧彿
+	private String tName;//涓婚鍚嶇О
 	
 	
 	
 	public Topic() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	
 	public Topic(String tName) {

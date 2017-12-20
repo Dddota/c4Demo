@@ -8,7 +8,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<link href="../css/main.css" rel="stylesheet" type="text/css" />
+<link href="../../css/main.css" rel="stylesheet" type="text/css" />
 <html>
 <head>
     <title></title>
@@ -19,7 +19,7 @@
 </div>
 <div id="container">
     <div class="sidebar ">
-        <%@ include file="../jsp/topic/left.jsp"%>
+        <%@ include file="../topic/left.jsp"%>
     </div>
     <div class="main">
         编辑主题
@@ -36,18 +36,18 @@
             <%}%></ul>
         <div>
             <%
-
-
-
-
-
+                Page p=(Page)request.getAttribute("p");
+                int currentPageNum=p.getCurrentPageNum();
+                int pageSize=p.getPageSize();
+                int totalCount=p.getTotalCount();
+                int totalPageNum=p.getTotalPageNum();
             %>
-            <a href="#">首页</a>
-            <a href="#">上一页</a>
-            <a href="#">下一页</a>
-            <a href="#">尾页</a>
-            <form method="post" action="control.jsp?opr=pagejump">
-                页数 <input type="text" name="pagenum"  style="width:2em"><input type="submit" value="跳转">
+            <a href="control.jsp?opr=searchtopic&currentPageNum=1">首页</a>
+            <a href="control.jsp?opr=searchtopic&currentPageNum=<%=currentPageNum-1%>">上一页</a>
+            <a href="control.jsp?opr=searchtopic&currentPageNum=<%=currentPageNum+1%>">下一页</a>
+            <a href="control.jsp?opr=searchtopic&currentPageNum=<%=totalPageNum%>">尾页</a>
+            <form method="post" action="control.jsp?opr=searchtopic">
+                页数<%=currentPageNum%>/<%=totalPageNum%> <input type="text" name="pagenum"  style="width:2em"><input type="submit" value="跳转">
             </form>
 
             <div>

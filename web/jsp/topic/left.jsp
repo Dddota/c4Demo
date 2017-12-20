@@ -12,10 +12,10 @@
 </head>
 <body>边侧栏
  <ul>
-     <li><a>添加新闻</a></li>
-     <li><a>编辑新闻</a></li>
-     <li><a href="../../do/addtopic.jsp">添加主题</a></li>
-     <li><a href="../../do/control.jsp?opr=searchtopic">编辑主题</a></li>
+     <li><a href="../do/addnews.jsp">添加新闻</a></li>
+     <li><a href="#">编辑新闻</a></li>
+     <li><a href="../do/addtopic.jsp">添加主题</a></li>
+     <li><a href="../do/control.jsp?opr=searchtopic">编辑主题</a></li>
      </ul>
 </body>
 </html>
